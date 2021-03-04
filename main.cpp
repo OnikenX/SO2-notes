@@ -21,14 +21,54 @@
 using std::endl;
 
 
-void loopFIM() {
+
+void ex1() {
+	std::cout << "Olá cães." << std::endl;
+	//ele printa no ecrã: 
+	//Olß cÒes.
+
+	//isso porque windows não supporta nativamente os characters Unicode como outros sistemas operativos.
+	//char -> 1 bytes (caracteres que estão na tabela ASCII (8BIT))
+	//wchar -> 2 bytes (caracteres que estão na tabela UNICODE-16BIT)
+	//solução -> TCHAR ou para char ou wchar depende da propriedade do projeto Character Set
+}
+
+void ex2copypaste() {
+	const int MAX = 256;
+	TCHAR str[MAX], result[MAX] = TEXT("Olá! Este programa é para aceitar UNICODE. Insira \'fim\' para sair\n");
+	unsigned int i;
+	do {
+		_tprintf(result);
+		fflush(stdin);
+		_fgetts(str, MAX, stdin);
+		//Retirar \n
+		str[_tcslen(str) - 1] = '\0';
+		//Maiúsculas
+		for (i = 0; i < _tcslen(str); i++)
+			str[i] = _totupper(str[i]);
+		_stprintf_s(result, MAX, TEXT("Frase:%s, Tamanho:%d\n"), str, _tcslen(str));
+	} while (_tcsicmp(TEXT("FIM"), str));
+}
+
+void ex3a() {
+	const int MAX = 256;
+	TCHAR result[MAX] = TEXT("Olá! não às dorgas.");
+	_tprintf(TEXT("Frase: %s Tamanho:%d (character) %d (bytes)\n"), result, _tcslen(result), _tcslen(result) * sizeof(TCHAR));
+	srand(time(NULL));
+	int aleatorio = rand();
+	_gettchar();
+
+}
+
+
+void ex4loopFIM() {
 	tstring str = TEXT("Olá! Este programa é para aceitar UNICODE. Insira \'fim\' para sair\n");
 
 	tcout << str;
 	do {
 		std::getline(tcin, str);
 		//Maiúsculas
-		for (unsigned int i = 0; i < str.length(); i++)
+		for (unsigned int i = 0; i < str.length(); ++i)
 			str[i] = _totupper(str[i]);
 		/*str = TEXT("NOVO");*/
 		tcout << TEXT("Frase: ") << str << TEXT("Tamanho:") << str.length() << std::endl;
@@ -37,7 +77,7 @@ void loopFIM() {
 }
 
 
-void createProcess(LPTSTR argv[]) {
+void ex4createProcess(LPTSTR argv[]) {
 	const int MAX = 256;
 	TCHAR text[MAX] = TEXT("echo hello");
 
@@ -86,6 +126,7 @@ int _tmain(int argc, LPTSTR argv[]) {
 	_setmode(_fileno(stdin), _O_WTEXT);
 	_setmode(_fileno(stdout), _O_WTEXT);
 #endif
-	createProcess(argv);
+
+	ex4createProcess(argv);
 	return 0;
 }
