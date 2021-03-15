@@ -131,7 +131,8 @@ void test_std() {
 //ex2
 void registryPlayground() {
 	const int TAM = 100;
-	HKEY chave; // handle para a chave depois aberta/criada
+	//HKEY chave; // handle para a chave depois aberta/criada
+	OnikenX::Win32Wrappers::Handle<HKEY> chave;
 	TCHAR chave_nome[TAM] = TEXT("SOFTWARE\\SO2\\registryPlayground"), 
 		par_nome[TAM]=TEXT("primeira aula"),
 		par_valor[TAM]=TEXT("true");
@@ -145,7 +146,7 @@ void registryPlayground() {
 		REG_OPTION_NON_VOLATILE,
 		KEY_ALL_ACCESS,								//REGSAM                      samDesired,
 		NULL,								//const LPSECURITY_ATTRIBUTES lpSecurityAttributes,
-		&chave,								//PHKEY                       phkResult,
+		&chave.get(),								//PHKEY                       phkResult,
 		&resultado							//LPDWORD                     lpdwDisposition
 	) != ERROR_SUCCESS) {
 		_tprintf(TEXT("Chave não foi criada nem aberta! ERRO=%l", f));
@@ -158,7 +159,7 @@ void registryPlayground() {
 	//par_valor[0] = '\0';
 	DWORD tamanho = sizeof(par_valor);
 	if (RegSetKeyValue(
-		chave,//HKEY_CURRENT_USER
+		chave.get(),
 		par_nome,
 		0,
 		NULL,
@@ -169,7 +170,6 @@ void registryPlayground() {
 		_tprintf(TEXT("Atributo não foi encontrado. ERRO"));
 		return;
 	}
-	CloseHandle(chave);
 }
 
 int _tmain(int argc, LPTSTR argv[]) {
