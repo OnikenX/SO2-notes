@@ -1,37 +1,52 @@
 #pragma once
 
-#include <windows.h>
+#include <Windows.h>
 #include <memory>
 
-namespace OnikenX {
-	namespace Win32Wrappers {
-		//to automaticaly close handles and hkeys
-		template <typename HKEY>
-		class Handle {
-			H h{};
-		public:
+namespace Win32Wrappers {
+	//only usable with HKEY and HANDLE
+	template <typename H>
+	class handle;
 
-			Handle() {}
+	template <>
+	class handle<HKEY> {
+		HKEY h{};
+	public:
 
-			~Handle() {
-				auto typeH = typeid(H).name;
-				if (typeid(HKEY).name == typeH) {
-					RegCloseKey(h);
-					_tprintf(TEXT("Closed Key"));
-				}
-				else if (typeid(HANDLE).name == typeH) {
-					CloseHandle(h);
-					_tprintf(TEXT("Closed handle"));
-				}
-				else {
-					_tprintf(TEXT("Don't know type."));
-				}
-			}
-			H& operator()() {
-				return H;
-			}
+		handle() {}
 
-		};
-	}
+		~handle() {
+			RegCloseKey(h);
+			//_tprintf(TEXT("Closed Key"));
+		}
+		HKEY& operator()() {
+			return h;
+		}
+		
+		HKEY copy() {
+			return h;
+		}
+
+
+	};
+	template <>
+	class handle<HANDLE> {
+		HANDLE h{};
+	public:
+
+		handle() {}
+		
+		~handle() {
+			CloseHandle(h);
+			//_tprintf(TEXT("Closed handle"));
+		}
+		HANDLE copy() {
+			return h;
+		}
+		HANDLE& operator()() {
+			return h;
+		}
+	};
+
 }
 
