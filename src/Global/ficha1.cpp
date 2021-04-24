@@ -1,30 +1,8 @@
-﻿#include <windows.h>
-#include <tchar.h>
-#include <fcntl.h>
-#include <io.h>
-#include <iostream>
-#include <string>
-#include "OnikenX_handles.h"
-//using namespace std;
-//Permitir que o mesmo código possa funcionar para ASCII ou UNICODE
 
-#ifdef UNICODE
-#define tcout std::wcout
-#define tcin std::wcin
-#define tstring std::wstring
-#define tstringstream std::wstringstream
-#else
-#define tcout std::cout
-#define tcin std::cin
-#define tstring std::string
-#define tstringstream std::stringstream
-#endif
-
-
+#include "OWin32Wrapper.h"
+#include "ficha1.h"
 
 using std::endl;
-
-
 
 void ex1() {
 	std::cout << "Olá cães." << std::endl;
@@ -90,7 +68,7 @@ void ex4createProcess(LPTSTR argv[]) {
 	//limpar a memoria para nao ser mal interpretado
 	ZeroMemory(&si, sizeof(si)); //zeromemory é o mesmo que o memset com tudo a 0
 	ZeroMemory(&pi, sizeof(pi)); //resultado da função: pid do processo, tid da thread principal, handle
-	
+
 	si.cb = sizeof(STARTUPINFO);
 
 
@@ -108,7 +86,7 @@ void ex4createProcess(LPTSTR argv[]) {
 		&pi)           // Pointer to PROCESS_INFORMATION structure
 		)
 	{
-		printf("CreateProcess failed (%d).\n", GetLastError());
+		_tprintf(TEXT("CreateProcess failed (%d).\n"), GetLastError());
 		return;
 	}
 	else {
@@ -118,68 +96,13 @@ void ex4createProcess(LPTSTR argv[]) {
 		WaitForSingleObject(&pi.hProcess, INFINITE); // > positivo tempo de espera, 0 só para consulta, INFITE até acontecer
 	}
 
-	
 
-	
+
+
 }
 void test_std() {
 	using namespace std::string_literals;
-	tcout << _T("helléÅÈÑÉËÅÅËÈφe") << std::endl;
+	tcout << _T("hello") << std::endl;
 }
 
 
-//ex2
-void registryPlayground() {
-	const int TAM = 100;
-	//HKEY chave; // handle para a chave depois aberta/criada
-	Win32Wrappers::handle<HKEY> chave;
-	TCHAR chave_nome[TAM] = TEXT("SOFTWARE\\SO2\\registryPlayground"), 
-		par_nome[TAM]=TEXT("primeira aula"),
-		par_valor[TAM]=TEXT("true");
-	DWORD resultado;
-	
-	if (RegCreateKeyEx(
-		HKEY_CURRENT_USER,
-		chave_nome,
-		0,
-		NULL,								//LPSTR                       lpClass,
-		REG_OPTION_NON_VOLATILE,
-		KEY_ALL_ACCESS,								//REGSAM                      samDesired,
-		NULL,								//const LPSECURITY_ATTRIBUTES lpSecurityAttributes,
-		&chave(),								//PHKEY                       phkResult,
-		&resultado							//LPDWORD                     lpdwDisposition
-	) != ERROR_SUCCESS) {
-		_tprintf(TEXT("Chave não foi criada nem aberta! ERRO=%l", f));
-		return;
-	}
-	if (resultado = REG_CREATED_NEW_KEY) 
-		_tprintf(TEXT("chave criada"));
-	else
-		_tprintf(TEXT("chave não criada."));
-	//par_valor[0] = '\0';
-	DWORD tamanho = sizeof(par_valor);
-	if (RegSetKeyValue(
-		chave(),
-		par_nome,
-		0,
-		NULL,
-		par_valor,//LPCVOID lpData,
-		sizeof(TCHAR) * (_tcslen(par_valor) + 1)
-	) != ERROR_SUCCESS)
-	{
-		_tprintf(TEXT("Atributo não foi encontrado. ERRO"));
-		return;
-	}
-}
-
-int _tmain(int argc, LPTSTR argv[]) {
-	//UNICODE: Por defeito, a consola Windows não processe caracteres wide.
-	//A maneira mais fácil para ter esta funcionalidade é chamar _setmode:
-#ifdef UNICODE
-	_setmode(_fileno(stdin), _O_WTEXT);
-	_setmode(_fileno(stdout), _O_WTEXT);
-#endif
-
-	registryPlayground();
-	return 0;
-}
