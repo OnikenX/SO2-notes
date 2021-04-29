@@ -12,7 +12,13 @@ PRODUTOR_SRC=src\Ficha6\Produtor\main.cpp
 CONSUMIDOR_EXE=Release\Consumidor.exe
 CONSUMIDOR_SRC=src\Ficha6\Consumidor\main.cpp
 
-all: ficha6 #build
+FICHA7_SRC=src\Ficha7\main.cpp
+FICHA7_EXE=Release\Ficha7.exe
+
+all: ficha7 #build
+
+ficha7: $(FICHA7_EXE)
+	cl.exe /DUNICODE /D_UNICODE /EHsc $(FICHA7_SRC) /Fe:$(FICHA7_EXE) /utf-8	
 
 ficha6: ficha6_compile
 
