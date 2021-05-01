@@ -3,6 +3,15 @@
         "memory": "cpp",
         "string": "cpp",
         "*.tcc": "cpp",
-        "shared.h": "c"
+        "shared.h": "c",
+        "iostream": "cpp",
+        "exception": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "vector": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xtr1common": "cpp",
+        "xutility": "cpp"
     }
 }

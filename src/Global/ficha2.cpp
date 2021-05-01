@@ -5,7 +5,7 @@
 void registryPlayground() {
 	const int TAM = 100;
 	//HKEY chave; // handle para a chave depois aberta/criada
-	Win32Wrappers::handle<HKEY> chave;
+	Win32Wrappers::Handle<HKEY> chave;
 	TCHAR chave_nome[TAM] = TEXT("SOFTWARE\\SO2\\registryPlayground"),
 		par_nome[TAM] = TEXT("primeira aula"),
 		par_valor[TAM] = TEXT("true");
@@ -22,13 +22,13 @@ void registryPlayground() {
 		&chave(),								//PHKEY                       phkResult,
 		&resultado							//LPDWORD                     lpdwDisposition
 	) != ERROR_SUCCESS) {
-		_tprintf(TEXT("Chave não foi criada nem aberta! ERRO=%l", f));
+		_tprintf(TEXT("Chave nï¿½o foi criada nem aberta! ERRO=%l", f));
 		return;
 	}
 	if (resultado = REG_CREATED_NEW_KEY)
 		_tprintf(TEXT("chave criada"));
 	else
-		_tprintf(TEXT("chave não criada."));
+		_tprintf(TEXT("chave nï¿½o criada."));
 	//par_valor[0] = '\0';
 	DWORD tamanho = sizeof(par_valor);
 	if (RegSetKeyValue(
@@ -40,7 +40,7 @@ void registryPlayground() {
 		sizeof(TCHAR) * (_tcslen(par_valor) + 1)
 	) != ERROR_SUCCESS)
 	{
-		_tprintf(TEXT("Atributo não foi encontrado. ERRO"));
+		_tprintf(TEXT("Atributo nï¿½o foi encontrado. ERRO"));
 		return;
 	}
 }
