@@ -22,7 +22,9 @@ add_executable(SO2_notes
     src/Global/OWin32Wrapper.h
     )
 
-add_executable(ficha7_client src/Ficha7/client.cpp)
-add_executable(ficha7_server src/Ficha7/server.cpp)
+add_executable(ficha4           src/ficha4/main.cpp)
+add_executable(ficha6           src/Ficha6/Consumidor/main.cpp)
+add_executable(ficha7_client    src/Ficha7/client.cpp)
+add_executable(ficha7_server    src/Ficha7/server.cpp)
 
-add_executable(ficha6 src/Ficha6/Consumidor/main.cpp)
+

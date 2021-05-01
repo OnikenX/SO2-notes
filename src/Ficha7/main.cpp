@@ -25,17 +25,9 @@ int _tmain(int argc, LPTSTR argv[]) {
 	_setmode(_fileno(stdin), _O_WTEXT);
 	_setmode(_fileno(stdout), _O_WTEXT);
 #endif
-
-
-    CreateNamedPipe(
-        TEXT("\\.\pipe\test"),
-        PIPE_ACCESS_DUPLEX | PIPE_TYPE_MESSAGE | PIPE_WAIT,
-        1,
-                
-        
-    );
-
-    ConnectNamedPipe()
-
+	_tprintf(TEXT("boas!!\n"));
    return 0;
+
+   CreateThread(
+feck, pelo menos já melhorei o meu script de init para inciar com default do vsdev x64 em powershell)
 }
