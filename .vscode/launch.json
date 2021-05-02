@@ -1,21 +1,28 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-
-        {
-            "name": "SO2-notes",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}\\Debug\\SO2-notes.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "console": "integratedTerminal",
-            "preLaunchTask": "build"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "cppvsdbg",
+      "name": "Debug ficha4",
+      "request": "launch",
+      "cwd": "C:\\Users\\OnikenX\\source\\repos\\SO2-notes\\build",
+      "args": [],
+      "program": "C:\\Users\\OnikenX\\source\\repos\\SO2-notes\\Debug\\Debug\\ficha4.exe"
+    },
+    {
+      "name": "SO2-notes",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\Debug\\SO2-notes.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "console": "integratedTerminal",
+      "preLaunchTask": "build"
+    }
+  ]
 }
